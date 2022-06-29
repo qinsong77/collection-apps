@@ -4,13 +4,20 @@
   "private": true,
   "workspaces": [
     "apps/*",
+    "react-ts/*",
+    "shared-routing/*",
     "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "run:start:web": "turbo run dev --filter=web",
+    "run:start:app1": "turbo run dev --filter=app1",
+    "run:start:app2": "turbo run dev --filter=app2",
+    "run:start:react-ts": "turbo run start --filter=./react-ts/*",
+    "run:start:shared-routing": "turbo run dev --filter=shared-routing"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",

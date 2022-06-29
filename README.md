@@ -81,3 +81,4 @@ Learn more about the power of Turborepo:
 turbo run dev --scope='web' --include-dependencies --no-deps
 turbo run dev --filter=web
 ```
+rm -rf .turbo
