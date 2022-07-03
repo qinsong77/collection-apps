@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "react-ts/*",
-    "shared-routing/*",
+    "apps/**",
     "packages/*"
   ],
   "scripts": {
@@ -14,10 +12,11 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "run:start:web": "turbo run dev --filter=web",
-    "run:start:app1": "turbo run dev --filter=app1",
-    "run:start:app2": "turbo run dev --filter=app2",
-    "run:start:react-ts": "turbo run start --filter=./react-ts/*",
-    "run:start:shared-routing": "turbo run dev --filter=shared-routing"
+    "run:dev:@mf.react-ts/app1": "turbo run dev --filter=@mf.react-ts/app1",
+    "run:dev:@mf.react-ts/app2": "turbo run dev --filter=@mf.react-ts/app2",
+    "run:dev:@mf.react-ts": "turbo run dev --filter=@mf.react-ts/*",
+    "run:dev:@mf.shared-routing": "turbo run dev --filter=@mf.shared-routing/*",
+    "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
@@ -29,5 +28,5 @@
     "node": ">=14.0.0"
   },
   "dependencies": {},
-  "packageManager": "pnpm@7.4.0"
+  "packageManager": "pnpm@7.4.1"
 }

@@ -76,9 +76,47 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turborepo.org/docs/reference/configuration)
 - [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
 
-
-```npm
+跑单个App
+```shell
 turbo run dev --scope='web' --include-dependencies --no-deps
 turbo run dev --filter=web
 ```
+`turbo run dev --filter=app1` **app1是package.json 内的名字**
+
+ 删除缓存
+```shell
 rm -rf .turbo
+
+# 删除所有node_modules
+find . -name "node_modules" -type d -exec rm -rf '{}' +
+```
+
+
+pnpm dlx replace npx
+
+pnpm dlx create-react-app cra-ts --template typescript
+
+
+### error list
+
+#### when run dev
+```
+@react-ts/app1:dev: [webpack-cli] Unable to load '@webpack-cli/serve' command
+@react-ts/app1:dev: [webpack-cli] TypeError: options.forEach is not a function
+```
+升级到最新版本解决
+```
+# old
+    "webpack": "5.36.2",
+    "webpack-cli": "4.7.2",
+    "webpack-dev-server": "3.11.2"
+# new
+    "webpack": "5.73.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.9.3"
+
+```
+```shell
+# 给一个应用装包
+ pnpm i --filter "@mf.shared-routing/shell" clsx  
+```

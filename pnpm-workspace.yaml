@@ -1,5 +1,3 @@
 packages:
-  - "apps/*"
-  - "react-ts/*"
-  - "shared-routing/*"
+  - "apps/**"
   - "packages/*"
