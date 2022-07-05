@@ -16,6 +16,7 @@
     "run:dev:@mf.react-ts/app2": "turbo run dev --filter=@mf.react-ts/app2",
     "run:dev:@mf.react-ts": "turbo run dev --filter=@mf.react-ts/*",
     "run:dev:@mf.shared-routing": "turbo run dev --filter=@mf.shared-routing/*",
+    "run:dev:@qiankun-demo": "turbo run dev --filter=@micro-fe.qiankun-demo/*",
     "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache"
   },
   "devDependencies": {
