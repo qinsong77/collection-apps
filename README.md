@@ -91,6 +91,7 @@ turbo run dev --filter=web
 删除缓存
 ```shell
 rm -rf .turbo
+rm -rf ./node_modules/.cache/turbo
 # 删除所有node_modules
 find . -name "node_modules" -type d -exec rm -rf '{}' +
 # or script in package
@@ -254,6 +255,10 @@ pnpm i prettier -w -D
     "webpack-dev-server": "4.9.3"
 
 ```
+
+`[eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app »`
+
+暂时移除eslintconfig中的` "extends": "react-app"`, 在跑`turbo run dev --filter=@micro-fe.qiankun-demo/sub-cra-latest`时
 
 #### node版本要用node 16
 # todo

@@ -15,7 +15,7 @@
     "run:dev:@mf.shared-routing": "turbo run dev --filter=@mf.shared-routing/*",
     "run:dev:@qiankun-demo": "turbo run dev --filter=@micro-fe.qiankun-demo/*",
     "run:dev:@qiankun-demo-react": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-react",
-    "run:dev:@qiankun-demo-cra": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-cra-react",
+    "run:dev:@qiankun-demo-cra": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-cra-latest",
     "run:dev:@webpack-react-base": "turbo run dev --filter=webpack-react-base",
     "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache",
     "clear-node_modules": "rm -rf node_modules **/*/ node_modules"

@@ -14,7 +14,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
     "prettier/prettier": "error",
-    "@next/next/no-html-link-for-pages": "off",
-    "react/jsx-key": "off",
+    // "@next/next/no-html-link-for-pages": "off",
+    // "react/jsx-key": "off",
   },
 };

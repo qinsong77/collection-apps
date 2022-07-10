@@ -6,5 +6,8 @@ module.exports = {
         args[0].title = 'qiankun-example'
         return args
       })
+  },
+  devServer: {
+    port: process.env.VUE_APP_PORT,
   }
 }
