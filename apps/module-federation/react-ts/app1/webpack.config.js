@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack").container
-  .ModuleFederationPlugin;
+const ModuleFederationPlugin =
+  require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
     // contentBase是静态资源所在的路径，比如我们的模板index.html所在的路径，默认为项目根目录。
     // contentBase: path.join(__dirname, "dist"),
     static: {
-      directory: path.join(__dirname, './dist'),
+      directory: path.join(__dirname, "./dist"),
     },
     port: 3001,
   },
@@ -23,13 +23,13 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /bootstrap\.tsx$/,
-        loader: "bundle-loader",
-        options: {
-          lazy: true,
-        },
-      },
+      // {
+      //   test: /bootstrap\.tsx$/,
+      //   loader: "bundle-loader",
+      //   options: {
+      //     lazy: true,
+      //   },
+      // },
       {
         test: /\.tsx?$/,
         loader: "babel-loader",

@@ -2,11 +2,8 @@
   "name": "my-turborepo",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/**",
-    "packages/*"
-  ],
   "scripts": {
+    "prepare": "husky install",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
@@ -17,17 +14,23 @@
     "run:dev:@mf.react-ts": "turbo run dev --filter=@mf.react-ts/*",
     "run:dev:@mf.shared-routing": "turbo run dev --filter=@mf.shared-routing/*",
     "run:dev:@qiankun-demo": "turbo run dev --filter=@micro-fe.qiankun-demo/*",
-    "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache"
+    "run:dev:@qiankun-demo-react": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-react",
+    "run:dev:@qiankun-demo-cra": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-cra-react",
+    "run:dev:@webpack-react-base": "turbo run dev --filter=webpack-react-base",
+    "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache",
+    "clear-node_modules": "rm -rf node_modules **/*/ node_modules"
   },
   "devDependencies": {
+    "eslint": "^8.19.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "latest",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "dependencies": {},
-  "packageManager": "pnpm@7.4.1"
+  "packageManager": "pnpm@7.5.0"
 }

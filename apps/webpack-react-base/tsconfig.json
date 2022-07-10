@@ -1,0 +1,7 @@
+{
+  "extends": "@package.config/tsconfig/react-app.json",
+  "include": [
+    "src"
+  ],
+  "exclude": ["node_modules"]
+}
