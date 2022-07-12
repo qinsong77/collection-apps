@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   makeStyles,
   Divider,
@@ -8,42 +8,42 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
   ChevronLeft as ChevronLeftIcon,
   Dashboard as DashboardIcon,
   ShoppingCart as ShoppingCartIcon,
   Person as UserIcon,
-} from '@material-ui/icons';
-import clsx from 'clsx';
+} from "@material-ui/icons";
+import clsx from "clsx";
 
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
     ...theme.mixins.toolbar,
   },
   drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
+    position: "relative",
+    whiteSpace: "nowrap",
     width: 240,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9),
     },
   },
@@ -52,13 +52,23 @@ const useStyles = makeStyles(theme => ({
 function ListItemLink(props) {
   const selected = useMatch(props.to);
   const CustomLink = React.useMemo(
-    () => React.forwardRef((linkProps, ref) => <Link ref={ref} to={props.to} {...linkProps} />),
-    [props.to],
+    () =>
+      React.forwardRef((linkProps, ref) => (
+        <Link
+          ref={ref}
+          to={props.to}
+          {...linkProps}
+        />
+      )),
+    [props.to]
   );
 
   return (
     <li>
-      <ListItem selected={selected} button component={CustomLink}>
+      <ListItem
+        selected={selected}
+        button
+        component={CustomLink}>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText primary={props.text} />
       </ListItem>
@@ -69,9 +79,21 @@ function ListItemLink(props) {
 function Menu() {
   return (
     <List>
-      <ListItemLink to="dashboard" icon={<DashboardIcon />} text="Dashboard" />
-      <ListItemLink to="orders" icon={<ShoppingCartIcon />} text="Orders" />
-      <ListItemLink to="profile" icon={<UserIcon />} text="Profile" />
+      <ListItemLink
+        to="dashboard"
+        icon={<DashboardIcon />}
+        text="Dashboard"
+      />
+      <ListItemLink
+        to="orders"
+        icon={<ShoppingCartIcon />}
+        text="Orders"
+      />
+      <ListItemLink
+        to="profile"
+        icon={<UserIcon />}
+        text="Profile"
+      />
     </List>
   );
 }
@@ -83,10 +105,12 @@ export default function AppDrawer(props) {
     <Drawer
       variant="permanent"
       classes={{
-        paper: clsx(classes.drawerPaper, !props.drawer.open && classes.drawerPaperClose),
+        paper: clsx(
+          classes.drawerPaper,
+          !props.drawer.open && classes.drawerPaperClose
+        ),
       }}
-      open={props.open}
-    >
+      open={props.open}>
       <div className={classes.toolbarIcon}>
         <IconButton onClick={props.drawer.closeDrawer}>
           <ChevronLeftIcon />

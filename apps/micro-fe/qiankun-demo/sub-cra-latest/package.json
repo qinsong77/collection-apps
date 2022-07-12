@@ -24,7 +24,9 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": "react-app"
+    "extends": [
+      "react-app"
+    ]
   },
   "browserslist": {
     "production": [
@@ -39,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewired": "^2.1.6"
+    "react-app-rewired": "^2.2.1"
   }
 }

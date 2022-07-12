@@ -1,10 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint @typescript-eslint/no-var-requires: "off" */
 const path = require("path");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const friendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {

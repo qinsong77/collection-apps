@@ -3,16 +3,11 @@
   "display": "React App",
   "extends": "./base.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "module": "CommonJS",
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "noEmit": true,
     "jsx": "react-jsx"
   },
-  "files": [
-    "./r"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

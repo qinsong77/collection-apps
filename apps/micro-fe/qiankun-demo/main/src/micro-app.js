@@ -1,4 +1,5 @@
 import store from './store'
+import { loadMicroApp } from 'qiankun'
 
 const microApps = [
   {
@@ -28,6 +29,7 @@ const apps = microApps.map(item => {
     ...item,
     container: '#subapp-viewport', // 子应用挂载的div
     props: {
+      loadMicroApp: loadMicroApp,
       routerBase: item.activeRule, // 下发基础路由
       getGlobalState: store.getGlobalState // 下发getGlobalState方法
     }

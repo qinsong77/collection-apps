@@ -1,4 +1,4 @@
-import globalRegister from './global-register'
+import globalRegister from "./global-register";
 export default {
-  globalRegister
-}
+  globalRegister,
+};

@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-var-requires: "off" */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const ModuleFederationPlugin = require("webpack").container
@@ -41,7 +42,10 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "app2",
-      filename: "remoteEntry.js",
+      filename: "remoteEntryApp2.js",
+      remotes: {
+        app1: "app1@http://localhost:3001/remoteEntryApp1.js",
+      },
       exposes: {
         "./Button": "./src/Button",
       },

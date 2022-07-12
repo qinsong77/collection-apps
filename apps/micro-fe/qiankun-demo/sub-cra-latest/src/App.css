@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -22,6 +22,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-button {
+  height: 40px;
+  color: #111111;
+  font-size: 14px;
+  background: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 8px;
 }
 
 .App-link {

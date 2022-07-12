@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-var-requires: "off" */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
@@ -23,13 +24,13 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /bootstrap\.tsx$/,
-      //   loader: "bundle-loader",
-      //   options: {
-      //     lazy: true,
-      //   },
-      // },
+      {
+        test: /bootstrap\.tsx$/,
+        loader: "bundle-loader",
+        options: {
+          lazy: true,
+        },
+      },
       {
         test: /\.tsx?$/,
         loader: "babel-loader",
@@ -43,8 +44,12 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "app1",
+      filename: "remoteEntryApp1.js",
+      exposes: {
+        "./Button": "./src/Button",
+      },
       remotes: {
-        app2: "app2@http://localhost:3002/remoteEntry.js",
+        app2: "app2@http://localhost:3002/remoteEntryApp2.js",
       },
       shared: ["react", "react-dom"],
     }),

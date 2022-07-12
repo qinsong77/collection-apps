@@ -3,8 +3,18 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 25vmin;
   pointer-events: none;
+}
+
+.button {
+  height: 40px;
+  color: #111111;
+  font-size: 14px;
+  background: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 8px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
