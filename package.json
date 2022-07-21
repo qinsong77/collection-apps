@@ -21,11 +21,14 @@
     "clear-node_modules": "rm -rf node_modules **/*/ node_modules"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "eslint": "^8.19.0",
     "eslint-config-custom": "workspace:*",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
+    "serve": "^14.0.1",
     "turbo": "latest"
   },
   "engines": {
