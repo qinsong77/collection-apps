@@ -8,7 +8,7 @@ module.exports = {
 // # 主要type
 // feat:     增加新功能
 // fix:      修复bug
-//build:     主要目的是修改项目构建系统(例如 glup，webpack，rollup 的配置等)的提交
+// build:     主要目的是修改项目构建系统(例如 glup，webpack，rollup 的配置等)的提交
 // ci:         主要目的是修改项目继续集成流程(例如 Travis，Jenkins，GitLab CI，Circle等)的提交
 // docs:       文档更新
 // perf:      性能，体验优化

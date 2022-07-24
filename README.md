@@ -42,6 +42,8 @@ eg: 将运行所有依赖于 `foo` 的包的测试：
 pnpm --filter "...^foo" test
 ```
 
+pnpm dlx husky add .husky/commit-msg
+
 ## turborepo
 # Note
 
