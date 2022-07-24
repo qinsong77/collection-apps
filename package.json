@@ -7,7 +7,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
     "run:start:web": "turbo run dev --filter=web",
     "run:dev:@mf.react-ts/app1": "turbo run dev --filter=@mf.react-ts/app1",
     "run:dev:@mf.react-ts/app2": "turbo run dev --filter=@mf.react-ts/app2",

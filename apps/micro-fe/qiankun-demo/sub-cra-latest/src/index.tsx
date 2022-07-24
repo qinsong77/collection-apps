@@ -1,24 +1,20 @@
-import "./public-path"
+import './public-path';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
-
 let root: ReactDOM.Root;
 const render = () => {
-  root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-  );
+  root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
   root.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
   );
-}
-
+};
 
 // @ts-ignore
 if (!window.__POWERED_BY_QIANKUN__) {

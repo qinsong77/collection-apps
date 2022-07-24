@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  function openSub () {
+  function openSub() {
     if (!window.__POWERED_BY_QIANKUN__) {
-      alert('当前已经是单独运行的子应用')
-      return
+      alert('当前已经是单独运行的子应用');
+      return;
     }
 
     // window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ 是qiankun注入的子应用对应的地址，谨慎使用，生产环境建议将跳转地址维护在环境变量中
-    window.open(window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__)
+    window.open(window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__);
   }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Sub App created by create-react-app latest
-        </p>
+        <img
+          src={logo}
+          className="App-logo"
+          alt="logo"
+        />
+        <p>Sub App created by create-react-app latest</p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -27,8 +29,13 @@ function App() {
         >
           Learn React
         </a>
-        <hr/>
-       <button onClick={() => openSub()} className="App-button">go to sub react cra</button>
+        <hr />
+        <button
+          onClick={() => openSub()}
+          className="App-button"
+        >
+          go to sub react cra
+        </button>
       </header>
     </div>
   );
