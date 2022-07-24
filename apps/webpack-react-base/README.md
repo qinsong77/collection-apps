@@ -27,3 +27,23 @@ babel-loader仅仅识别出了jsx文件，内部核心转译功能需要@babel/c
 此时就引入了我们至关重要的@babel/preset-react。
 @babel/preset-react是一组预设，所谓预设就是内置了一系列babel plugin去转化jsx代码成为我们想要的js代码。
 
+
+
+webpack 5 之前，通常使用
+
+raw-loader 将文件导入为字符串
+url-loader 将文件作为data URL 内联到bundle中
+file-loader 将文件发送到输出目录
+webpack 5 之后
+asset/resource发送一个单独的文件并导出 URL。之前通过使用file-loader实现
+asset/inline导出一个资源的 data URI。之前通过使用url-loader实现。
+asset/source导出资源的源代码。之前通过使用raw-loader实现。
+asset在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用url-loader，并且配置资源体积限制实现。
+具体可以参考：https://webpack.docschina.org/guides/asset-modules
+
+
+关于配置type:'asset'后，webpack 将按照默认条件，自动地在 resource 和 inline 之间进行选择：小于 8kb 的文件，将会视为 inline 模块类型，否则会被视为 resource 模块类型。
+
+
+`import React from 'react'` 报错
+https://juejin.cn/post/7069598156735905800

@@ -1,7 +1,9 @@
 {
   "extends": "@package.config/tsconfig/react-app.json",
-  "include": [
-    "src"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "script/**/*"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

@@ -570,6 +570,7 @@ importers:
       '@types/webpack-dev-server': ^4.7.2
       babel-loader: ^8.2.5
       browserslist: ^4.21.1
+      cross-env: ^7.0.3
       css-loader: ^6.7.1
       css-minimizer-webpack-plugin: ^4.0.0
       dotenv: ^16.0.1
@@ -611,6 +612,7 @@ importers:
       '@types/webpack-dev-server': 4.7.2_77l47gmqkrqiei5z7sbwz5iaj4
       babel-loader: 8.2.5_fswvdo7jykdwhfxrdcvghfn6pa
       browserslist: 4.21.1
+      cross-env: 7.0.3
       css-loader: 6.7.1_webpack@5.73.0
       css-minimizer-webpack-plugin: 4.0.0_webpack@5.73.0
       dotenv: 16.0.1
