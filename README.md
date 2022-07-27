@@ -44,6 +44,25 @@ pnpm --filter "...^foo" test
 
 pnpm dlx husky add .husky/commit-msg
 
+### pnpm hoist
+
+1. 当不同子包都使用同样版本的某个依赖时，该依赖会被默认提升至顶层`node_modules`，子包内的该依赖会软链到顶层，全局唯一实例。
+
+2. 当子包间存在某依赖不同版本的使用时，会进行隔离处理放至 `.pnpm` （一个 pnpm存放依赖的 store），子包分别软链对应的版本实现隔离。
+
+配置 pnpm 强制提升
+
+```shell
+# .npmrc
+# 强制提升所有 antd 到全局，保证唯一实例
+public-hoist-pattern=typescript
+# 不配置这个选项时候的默认值，要手动把他加上
+public-hoist-pattern[]=*types*
+public-hoist-pattern[]=*eslint*
+public-hoist-pattern[]=@prettier/plugin-*
+public-hoist-pattern[]=*prettier-plugin-*
+```
+
 ## turborepo
 # Note
 
@@ -250,7 +269,12 @@ pnpm i prettier -w -D
 - docker
 - git action
 - husky
-- changeset
+- [changesets](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md)
+
+## [changesets](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md)
+> Changesets hold two key bits of information: a version type (following semver), and change information to be added to a changelog.
+
+
 
 # Turborepo starter with pnpm
 

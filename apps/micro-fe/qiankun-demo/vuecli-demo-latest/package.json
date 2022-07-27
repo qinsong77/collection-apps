@@ -8,9 +8,6 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
-  "eslintConfig": {
-    "root": true
-  },
   "dependencies": {
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",

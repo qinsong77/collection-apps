@@ -1,13 +1,13 @@
-import * as webpack from 'webpack';
+import type { Configuration } from 'webpack';
+import 'webpack-dev-server';
 import merge from 'webpack-merge';
 import commonConfig from './webpack.common';
-import 'webpack-dev-server';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
-const config: webpack.Configuration = {
+const config: Configuration = {
+  mode: 'development',
   // https://webpack.docschina.org/configuration/cache/
   cache: { type: 'memory' },
-  mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   watchOptions: {
     aggregateTimeout: 500,

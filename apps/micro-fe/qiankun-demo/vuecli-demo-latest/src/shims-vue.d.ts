@@ -4,9 +4,3 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
-
-declare namespace NodeJS {
-  interface ProcessEnv {
-    readonly BASE_URL: string;
-  }
-}

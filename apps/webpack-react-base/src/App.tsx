@@ -1,12 +1,18 @@
 import logo from './logo.svg';
+import co from './assets/coverage_html.png';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
         <img
           src={logo}
+          className="App-logo"
+          alt="logo"
+        />
+        <img
+          src={co}
           className="App-logo"
           alt="logo"
         />
@@ -23,6 +29,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,18 +1,21 @@
 // .ts 配置 https://webpack.js.org/configuration/configuration-languages
-import type * as webpack from 'webpack';
+import type { Configuration } from 'webpack';
+import * as webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-// in case you run into any typescript error when configuring `devServer`
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import * as path from 'path';
 import { IS_DEV } from './config';
+import { handler } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const friendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
-const config: webpack.Configuration = {
-  entry: path.resolve(__dirname, '../src/index'),
+const config: Configuration = {
   mode: 'production',
+  entry: path.resolve(__dirname, '../src/index'),
   output: {
+    // 相当于 clean-webpack-plugin
     clean: true,
     // publicPath: 'auto',
     path: path.resolve(__dirname, '../dist'),
@@ -22,14 +25,18 @@ const config: webpack.Configuration = {
     chunkFilename: IS_DEV
       ? 'js/[name].chunk.js'
       : 'js/[name].[contenthash:8].chunk.js',
+    // 与 output.filename 相同，不过应用于 Asset Modules。
     assetModuleFilename: 'assets/[hash][ext][query]',
   },
   resolve: {
+    // 尝试按顺序解析这些后缀名。如果有多个文件有相同的名字，但后缀名不同，webpack 会解析列在数组首位的后缀的文件 并跳过其余的后缀。
     extensions: ['.tsx', '.ts', '.js', '.json'],
+    // 创建 import 或 require 的别名，来确保模块引入变得更简单。例如，一些位于 src/ 文件夹下的常用模块：
     alias: {
       '@': path.resolve(__dirname, '../src'),
     },
   },
+  // loader的执行顺序默认从右到左，多个loader用[],字符串只用一个loader，也可以是对象的格式
   module: {
     rules: [
       // assets模块是webpack5自带,不用下载
@@ -43,14 +50,14 @@ const config: webpack.Configuration = {
           },
         },
         generator: {
-          filename: 'assets/images/[hash][ext][query]',
+          filename: 'assets/images/[name].[hash][ext][query]',
         },
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/fonts/[hash][ext][query]',
+          filename: 'assets/fonts/[name][hash][ext][query]',
         },
       },
       {
@@ -85,7 +92,9 @@ const config: webpack.Configuration = {
         minifyJS: true, // 压缩 HTML 中出现的 JS 代码
       },
     }),
+    new ForkTsCheckerWebpackPlugin(),
     new friendlyErrorsWebpackPlugin(),
+    new webpack.ProgressPlugin(handler),
   ],
 };
 

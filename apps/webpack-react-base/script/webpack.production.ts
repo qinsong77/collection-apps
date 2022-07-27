@@ -1,15 +1,12 @@
-import * as webpack from 'webpack';
+import type { Configuration } from 'webpack';
 import merge from 'webpack-merge';
-import commonConfig from './webpack.common';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import commonConfig from './webpack.common';
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   mode: 'production',
   cache: { type: 'filesystem', buildDependencies: { config: [__filename] } },
-  output: {
-    pathinfo: false, //优化
-  },
   optimization: {
     minimize: true, //开启压缩
     moduleIds: 'deterministic', //单独模块id，模块内容变化再更新
