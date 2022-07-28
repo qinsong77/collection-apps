@@ -305,7 +305,6 @@ pnpm add tsconfig-paths -D
 pnpm add html-webpack-plugin @pmmmwh/react-refresh-webpack-plugin react-refresh dotenv cross-env mini-css-extract-plugin css-minimizer-webpack-plugin style-loader css-loader friendly-errors-webpack-plugin fork-ts-checker-webpack-plugin -D
 ```
 
-
 ### 添加public文件夹
 
 添加index.html
@@ -330,6 +329,7 @@ pnpm add html-webpack-plugin @pmmmwh/react-refresh-webpack-plugin react-refresh 
   </body>
 </html>
 ```
+
 ### script
 
 ### env
@@ -368,41 +368,51 @@ asset在导出一个 data URI 和发送一个单独的文件之间自动选择�
 关于配置type:'asset'后，webpack 将按照默认条件，自动地在 resource 和 inline 之间进行选择：小于 8kb 的文件，将会视为 inline 模块类型，否则会被视为 resource 模块类型。
 
 ## babel 设置
+
 关于TS转JS,有三种方案
+
 - tsc: 不好配合webpack使用，转换es5以后，一些语法特性不能转换。
-- [ts-loader](https://www.npmjs.com/package/ts-loader): 可以做类型检查，可搭配tsconfig.json
-- babel-loader+@babel/preset-typescript, 插件丰富，提供缓存，后续兼容扩展更强，但做不了类型检查(可以使用[Fork TS Checker Webpack Plugin](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin)。（推荐）
+- [ts-loader](https://www.npmjs.com/package/ts-loader): 可以做类型检查，可搭配`tsconfig.json`使用。
+- `babel-loader` + `@babel/preset-typescript`, 插件丰富，提供缓存机制，后续兼容扩展更强，但做不了类型检查(可以使用[Fork TS Checker Webpack Plugin](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin)。（推荐）
 
 ```shell
-pnpm i babel-loader @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript -D
-pnpm i @babel/plugin-transform-runtime core-js -D
+pnpm i babel-loader @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript core-js -D
+pnpm i @babel/plugin-transform-runtime -D
+pnpm add @babel/runtime
 ```
+
 - [吃一堑长一智系列: 99% 开发者没弄明白的 babel 知识](https://zhuanlan.zhihu.com/p/361874935)
 - [@babel/preset-env 与@babel/plugin-transform-runtime 使用及场景区别](https://segmentfault.com/a/1190000021188054)
-- babel-loader: 首先对于项目中的jsx文件需要通过一个"转译器"将项目中的jsx文件转化成js文件，babel-loader在这里充当的就是这个转译器。babel-loader仅仅识别出了jsx文件，内部核心转译功能需要@babel/core这个核心库，@babel/core模块就是负责内部核心转译实现的。
+- [babel-loader](https://webpack.docschina.org/loaders/babel-loader): 使用 Babel 和 webpack 转译 JavaScript 等文件，内部核心转译功能需要@babel/core这个核心库。
 - @babel/core: @babel/core是babel的核心库，所有的核心api都在这个库里，这些api可供babel-loader调用
-- @babel/preset-env: 这是一个预设的插件集合，包含了一组相关的插件，Babel中是通过各种插件来指导如何进行代码转换。该插件包含所有es6转化为es5的翻译规则。可以做到按需加载我们需要的 polyfill
-> > @babel/prest-env是babel转译过程中的一些预设，它负责将一些基础的es 6+语法，比如const/let...转译成为浏览器可以识别的低级别兼容性语法。这里需要注意的是@babel/prest-env并不会对于一些es6+高版本语法的实现，比如Promise等polyfill，你可以将它理解为语法层面的转化不包含高级别模块(polyfill)的实现。
+- [@babel/preset-env](https://babel.docschina.org/docs/en/babel-preset-env/): 这是一个预设的插件集合，包含了一组相关的插件，Babel中是通过各种插件来指导如何进行代码转换。该插件包含所有es6转化为es5的翻译规则。可以做到按需加载我们需要的 polyfill
+
+> @babel/prest-env是babel转译过程中的一些预设，它负责将一些基础的es 6+语法，比如const/let...转译成为浏览器可以识别的低级别兼容性语法。这里需要注意的是@babel/prest-env并不会对于一些es6+高版本语法的实现，比如Promise等polyfill，你可以将它理解为语法层面的转化不包含高级别模块(polyfill)的实现。
+
 - @babel/runtime:  is a library that contains Babel modular runtime helpers. preset-env的polyfill会污染全局环境，项目开发可以接受，但做library时最好避免，不应该污染全局，并且应该提供更好的打包体积和效率
 - @babel/plugin-transform-runtime: A plugin that enables the re-use of Babel's injected helper code to save on codesize.
   - 当开发者使用异步或生成器的时候，自动引入@babel/runtime/regenerator，开发者不必在入口文件做额外引入；
   - 提供沙盒环境，避免全局环境的污染
   - 移除babel内联的helpers，统一使用@babel/runtime/helpers代替，减小打包体积
 - [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react): Babel preset for all React plugins.是一组预设，所谓预设就是内置了一系列babel plugin去转化jsx代码成为我们想要的js代码
-- @babel/polyfill：Babel 7.4之后不再推荐，@babel/preset-env只是提供了语法转换的规则，但是它并不能弥补浏览器缺失的一些新的功能，如一些内置的方法和对象，如Promise，Array.from等，此时就需要polyfill来做js的垫片，弥补低版本浏览器缺失的这些新功能。注意：Babel 7.4.0该包将被废弃
+- @babel/preset-typescript:这是一个插件，使Babel能够将TypeScript代码转化为JavaScript。
+- @babel/polyfill：@babel/preset-env只是提供了语法转换的规则，但是它并不能弥补浏览器缺失的一些新的功能，如一些内置的方法和对象，如Promise，Array.from等，此时就需要polyfill来做js的垫片，弥补低版本浏览器缺失的这些新功能。注意：Babel 7.4.0该包将被废弃
 - core-js：它是JavaScript标准库的polyfill，而且它可以实现按需加载。使用@babel/preset-env的时候可以配置core-js的版本和core-js的引入方式。
 - regenerator-runtime：提供generator函数的转码
 
 业务项目
-```json
+
+```json5
 {
   "presets": [
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "chrome": 58
-        },
+        // https://babel.docschina.org/docs/en/options/#targets
+        // 官方推荐使用.browserslistrc配置
+//        "targets": {
+//          "chrome": 58
+//        },
         "useBuiltIns": "entry",
         "corejs": {
           "version": 3,
@@ -413,7 +423,7 @@ pnpm i @babel/plugin-transform-runtime core-js -D
   ],
   "plugins": [
     [
-      "@babel/plugin-transform-runtime",
+      "@babel/plugin-transform-runtime", // 需要把 @babel/runtime 安装为一个依赖
       {
         "corejs": false
       }
@@ -421,12 +431,16 @@ pnpm i @babel/plugin-transform-runtime core-js -D
   ]
 }
 ```
+
 并在入口文件处 import 如下内容
+
 ```js
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 ```
+
 library:
+
 ```json
 {
   "presets": [
@@ -450,11 +464,13 @@ library:
 ```
 
 ## browserslist
-rowserslist：browserslist实际上就是声明了一段浏览器的合集，我们的工具可以根据这个合集描述，针对性的输出兼容性代码，browserslist应用于babel、postcss等工具当中。
+
+browserslist实际上就是声明了一段浏览器的合集，我们的工具可以根据这个合集描述，针对性的输出兼容性代码，browserslist应用于babel、postcss等工具当中。
+
 “> 1%”表示兼容市面上使用量大于百分之一的浏览，“last 1 chrome version”表示兼容到谷歌的上一个版本，具体的可以使用命令npx browserslist "> 1%"的方式查看都包含了哪些浏览器
 
-browserslist可以在package.json文件配置，也可以单出写一个.browserslistrc文件进行配置
-工具会自动查找.browserslistrc中的配置，如果没有发现.browserslistrc文件，则会去package.json中查找
+browserslist可以在`package.json`文件配置，也可以单出写一个`.browserslistrc`文件进行配置。
+工具会自动查找`.browserslistrc`中的配置，如果没有发现`.browserslistrc`文件，则会去package.json中查找
 
 ```
 // 在.browserslistrc中的写法
@@ -479,28 +495,199 @@ last 1 firefox version
 // production和development取决你webpack中mode字段的配置
 {
   "browserslist": {
-  "production": [
-   ">0.2%",
-   "not dead",
-   "not op_mini all"
-  ],
-  "development": [
-   "last 1 chrome version",
-   "last 1 firefox version",
-   "last 1 safari version"
-  ]
+    "production": [
+     ">0.2%",
+     "not dead",
+     "not op_mini all"
+    ],
+    "development": [
+     "last 1 chrome version",
+     "last 1 firefox version",
+     "last 1 safari version"
+    ]
  }
 }
 ```
 
 ## postcss
+
 postcss其实就是类似css中的babel的作用，
+
 ```shell
 pnpm add postcss postcss-loader postcss-preset-env postcss-cssnext postcss-flexbugs-fixes postcss-normalize -D
 ```
 
 ## eslint, Prettier
 
+[ESLint](https://eslint.org/)是一个前端标准的静态代码检查工具，它可以根据配置的规则来检查代码是否符合规范。
+
+
+**`plugins` 只是开启了这个插件，而 `extends` 则会继承别人写好的一份 `.eslintrc` 的配置，这份配置不仅仅包括了 `rules` 还有 `parser`，`plugins` 之类的东西。**
+
+
+**注意：要把 Prettier 的推荐配置 `plugin:prettier/recommended` 放在 `extends` 最后一项。**
+
+[Prettier](https://prettier.io/)是一个代码格式化工具。 ESLint 是通过制定的的规范来检查代码的，这里的 **规范** 有两种：
+
+* 代码风格规范
+* 代码质量规范
+
+Prettier 主要负责的是代码风格。
+
+### `extends` vs `plugins`
+
+这一节我想聊聊 ESLint 中 `extends` 和 `plugins` 这两个配置参数的区别，相信这会困扰很多人。
+
+举个例子，假如我们要配置 ESLint x TypeScript，可以看到官网有这样的配置：
+
+```js
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+  ],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+};
+```
+
+神奇的是，当你去掉 `plugins` 之后发现 `eslint` 依然可以正常工作。更神奇的是，只要你写了 `extends`，那么连 `parser` 也可以不用加，要知道没有指定 `parser` 选项，eslint 可看不懂你的 TypeScript 文件。
+
+所以说，到底是 `plugins` 加上了 TypeScript 的能力还是 `extends` 加上了 TypeScript 的规则呢？真让人头大，直到终于有一天受不了了，翻找了一下网上的资料发现了[这个帖子](https://stackoverflow.com/questions/61528185/eslint-extends-vs-plugins-v2020)。
+
+先来说结论吧：**`plugins` 只是开启了这个插件，而 `extends` 则会继承别人写好的一份 `.eslintrc` 的配置，这份配置不仅仅包括了 `rules` 还有 `parser`，`plugins` 之类的东西。**
+
+所以回到问题，为什么在继承了 `plugin:@typescript-eslint/recommended` 之后就可以不写 `plugins` 和 `parser` 呢？因为别人已经把配置都放在 `recommended` 这份配置表里了，这样对使用的人来说，就可以少写很多配置项了。
+
+也就是说，下面两份配置是等价的：
+
+```js
+module.exports = {
+  parser: "@typescript-eslint/parser",
+  parserOptions: { sourceType: "module" },
+  plugins: ["@typescript-eslint"],
+  extends: [],
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        allowExpressions: true
+      }
+    ]
+  }
+}
+```
+
+以及
+
+```js
+module.exports = {
+  plugins: [],
+  extends: ["plugin:@typescript-eslint/recommended"],
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        allowExpressions: true
+      }
+    ]
+  }
+}
+```
+
+对于第一份配置：
+* 需要手动添加 `parser`, `parserOptions`, `plugins`
+* 只开启了 `@typescript-eslint/explicit-function-return-type` 一个规则
+
+对于第二份配置：
+* `plugin:@typescript-eslint/recommended` 自动添加了 `parser`, `parserOptions`, `plugins`
+* 自动加上一些推荐的 TypeScript 的 ESLint 规则
+* 自定义了 `@typescript-eslint/explicit-function-return-type` 规则
+
+```shell
+pnpm add prettier -D
+pnpm add eslint -D
+pnpm add  @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
+pnpm add eslint-config-prettier eslint-plugin-prettier -D
+pnpm add eslint-plugin-react eslint-plugin-react-hooks -D
+```
+
 ## lint-stage, husky, commitlint
 
+.editorconfig
 
+husky 可用于提交代码时进行 eslint 校验，如果有 eslint 报错可阻止代码提交。
+
+@commitlint/config-conventional @commitlint/cli 制定了git commit提交规范，团队可以更清晰的查看每一次代码的提交记录
+
+lint-staged 能够让lint只检测git缓存区的文件，提交速度。
+```shell
+pnpm add -D @commitlint/config-conventional @commitlint/cli husky lint-staged
+```
+package.json中添加命令
+```json
+{
+  "scripts":{
+    "prepare": "husky install & npx only-allow pnpm"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["prettier --write", "eslint  --fix"]
+  }
+}
+```
+
+在项目根目录下创建`commitlint.config.js`
+
+```js
+// git commit 规范
+// <类型>[可选的作用域]: <描述>
+//git commit -m 'feat: 增加 xxx 功能'
+//git commit -m 'bug: 修复 xxx 功能'
+// # 主要type
+// feat:     增加新功能
+// fix:      修复bug
+//build:     主要目的是修改项目构建系统(例如 glup，webpack，rollup 的配置等)的提交
+//ci:         主要目的是修改项目继续集成流程(例如 Travis，Jenkins，GitLab CI，Circle等)的提交
+//docs:       文档更新
+//perf:      性能，体验优化
+//refactor:  代码重构时使用
+// style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号
+// refactor: 代码重构时使用
+// revert:   执行git revert打印的message
+//chore：      不属于以上类型的其他类型
+// test:     添加测试或者修改现有测试
+
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+};
+
+```
+
+安装husky
+```shell
+pnpm prepare
+```
+Husky 用来绑定 Git Hooks、在指定时机（例如 pre-commit）执行我们想要的命令，安装方式请参考 Husky 文档：https://typicode.github.io/husky/#/?id=automatic-recommended
+
+初始化完成后，`pnpm dlx husky add .husky/commit-msg "npx --no-install commitlint --edit $1" `
+```shell
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm dlx --no-install commitlint --edit 
+```
+
+```shell
+pnpm dlx husky add .husky/pre-commit "npx --no-install lint-staged" 
+```
+
+## analyze
+
+```shell
+webpack --profile --json > stats.json
+pnpm i webpack-bundle-analyzer -g 
+webpack-bundle-analyzer stats.json 
+```

@@ -1,19 +1,25 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     node: true,
     commonjs: true,
     es2021: true,
   },
+  parserOptions: {
+    ecmaVersion: 2021,
+  },
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
+    // ESLint
+    'eslint:recommended',
+    // TypeScript
+    'plugin:@typescript-eslint/recommended',
+    // Prettier
+    'plugin:prettier/recommended',
   ],
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: [],
   rules: {
-    "prettier/prettier": "error",
+    'prettier/prettier': 'error',
     // "@next/next/no-html-link-for-pages": "off",
     // "react/jsx-key": "off",
   },

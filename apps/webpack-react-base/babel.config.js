@@ -9,7 +9,7 @@ module.exports = {
         useBuiltIns: 'usage',
         corejs: {
           version: 3,
-          proposals: false,
+          proposals: true,
         },
       },
     ],
@@ -26,7 +26,7 @@ module.exports = {
     [
       '@babel/plugin-transform-runtime',
       {
-        corejs: false, // 默认值，即使如此依然需要 yarn add @babel/runtime
+        corejs: false,
       },
     ],
   ].concat(IS_DEV ? ['react-refresh/babel'] : []),
