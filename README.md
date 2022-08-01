@@ -95,8 +95,6 @@ rm -rf .turbo
 rm -rf ./node_modules/.cache/turbo
 # 删除所有node_modules
 find . -name "node_modules" -type d -exec rm -rf '{}' +
-# or script in package
-"clear-node_modules": "rm -rf node_modules **/*/ node_modules"
 ```
 
 ## pnpm 
@@ -133,6 +131,11 @@ eg: 将`package`中的包安装到`app`下
 pnpm i @package.config/tsconfig -r --filter webpack-react-base -D
 ```
 使用 `--filter` 后面接子 `package` 的 `name` 表示只把安装的新包装入这个 `package` 中。
+
+安装到多个包*
+```shell
+pnpm i @sysuke/eslint-config-react --filter="@mf.react-ts/*" -D
+```
 
 更新包
 ```shell

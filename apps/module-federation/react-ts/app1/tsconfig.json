@@ -1,5 +1,5 @@
 {
-  "extends": "@package.config/tsconfig/react-app.json",
+  "extends": "@sysuke/tsconfig/react-app.json",
   "include": [
     "src"
   ],

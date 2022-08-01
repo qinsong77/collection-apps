@@ -17,14 +17,14 @@
     "run:dev:@qiankun-demo-react": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-react",
     "run:dev:@qiankun-demo-cra": "turbo run dev --filter=@micro-fe.qiankun-demo/sub-cra-latest",
     "run:dev:@webpack-react-base": "turbo run dev --filter=webpack-react-base",
-    "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache",
-    "clear-node_modules": "rm -rf node_modules **/*/ node_modules"
+    "clean": "rimraf ./packages/*/dist **/.turbo, **/.cache"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@sysuke/eslint-config-base": "2.0.0-alpha.0",
+    "@sysuke/tsconfig": "^2.0.0-alpha.1",
     "eslint": "^8.19.0",
-    "eslint-config-custom": "workspace:*",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
