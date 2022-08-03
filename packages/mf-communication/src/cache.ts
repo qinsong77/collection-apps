@@ -1,4 +1,4 @@
-const namespace = 'Module_Federation_Customer';
+const namespace = 'Module_Federation_Cache';
 
 export const setCache = (key: string, value: any): void => {
   if (!(window as any)[namespace]) {

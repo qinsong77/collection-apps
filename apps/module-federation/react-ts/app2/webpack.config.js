@@ -13,6 +13,9 @@ module.exports = {
       directory: path.join(__dirname, './dist'),
     },
     port: 3002,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    }
   },
   output: {
     publicPath: "auto",

@@ -1,18 +1,27 @@
 import * as React from 'react';
-import { EventBusWithWindow as eventBus } from 'mf-communication';
+import { EventBusWithWindow as eventBus, PubSub } from 'mf-communication';
 
 const Button = () => {
-  const subscribe = () => {
-    eventBus.publish('eventName_test', {
+  const publishW = () => {
+    eventBus.publish('ChannelName_test', {
       data: 123,
     });
   };
+  const publish = () => {
+    PubSub.publish('app1', 'message', {
+      time: Date.now(),
+    });
+  };
   return (
-    <button
-      style={{ border: '1px solid red' }}
-      onClick={subscribe}>
-      App 1 Button
-    </button>
+    <div>
+      <button
+        style={{ border: '1px solid red' }}
+        onClick={publishW}>
+        App 1 Button
+      </button>
+      <hr />
+      <button onClick={() => publish()}> PubSub - Publish</button>
+    </div>
   );
 };
 

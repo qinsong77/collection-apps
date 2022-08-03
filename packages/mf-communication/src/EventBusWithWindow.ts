@@ -6,22 +6,21 @@ const CustomEventName = 'CustomEventName';
 
 type EventName = string;
 type PayLoad = Record<string, any>;
+type CallBack = (payload: PayLoad) => void;
 
-interface Hooks {
+interface FuncHooks {
   publish(eventName: EventName, payload: PayLoad): void;
   subscribe(
     eventName: EventName,
-    callback: (payload: PayLoad, once?: boolean) => void
-  ): Function;
-  unSubscribe(
-    eventName: EventName,
-    callback: (payload: PayLoad, once?: boolean) => void
-  ): void;
+    callback: CallBack,
+    once?: boolean
+  ): () => void;
+  unSubscribe(eventName: EventName, callback: CallBack): void;
   hasTopic(eventName: EventName): boolean;
 }
 
-class EventBus implements Hooks {
-  eventEmitter: Record<string, Function[]>;
+class EventBus implements FuncHooks {
+  eventEmitter: Record<string, CallBack[]>;
   constructor() {
     this.eventEmitter = {};
     window.addEventListener(CustomEventName, (e: any) => {
@@ -43,22 +42,37 @@ class EventBus implements Hooks {
       })
     );
   }
-  subscribe(eventName: EventName, callback: (payload: PayLoad) => void) {
+
+  subscribe(
+    eventName: EventName,
+    callback: CallBack,
+    once?: boolean
+  ): () => void {
     if (!this.hasTopic(eventName)) {
       this.eventEmitter[eventName] = [];
     }
-    this.eventEmitter[eventName].push(callback);
+    if (once) {
+      // @ts-ignore
+      const onlyOnce = (...args) => {
+        this.unSubscribe(eventName, callback);
+        callback.apply(this, args as any);
+      };
+      onlyOnce.origin = callback;
+      this.eventEmitter[eventName].push(onlyOnce);
+    } else this.eventEmitter[eventName].push(callback);
     return () => this.unSubscribe(eventName, callback);
   }
+
   unSubscribe(eventName: EventName, callback: (payload: PayLoad) => void) {
     if (this.hasTopic(eventName) && callback) {
       this.eventEmitter[eventName] = this.eventEmitter[eventName].filter(
-        (cb) => cb !== callback
+        // @ts-ignore
+        (cb) => cb !== callback && cb.origin !== callback
       );
     }
   }
   hasTopic(eventName: EventName): boolean {
-    return !!this.eventEmitter[eventName];
+    return Array.isArray(!this.eventEmitter[eventName]);
   }
 }
 

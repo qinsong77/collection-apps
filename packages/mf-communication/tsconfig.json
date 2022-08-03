@@ -1,10 +1,11 @@
 {
   "extends": "@sysuke/tsconfig/base.json",
   "compilerOptions": {
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["src/type.d.ts"],
     "declaration": true,
     "outDir": "lib"
   },
-  "include": ["."]
+  "include": ["src/*"],
+  "exclude": ["node_modules"]
 }
